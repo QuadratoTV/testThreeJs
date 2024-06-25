@@ -11,6 +11,7 @@
   "dependencies": {
     "console-png": "^1.2.1",
     "imgur": "^2.4.2",
+    "imgur-upload": "^0.1.2",
     "puppeteer": "^22.12.0"
   }
 }

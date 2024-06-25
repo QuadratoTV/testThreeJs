@@ -1,8 +1,7 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-const imgur = require('imgur');
-
-imgur.setClientId('4777e903cbb1acf');
+const imgur = require('imgur-upload'),
+    path = require('path');
 
 (async () => {
     const browser = await puppeteer.launch({
@@ -26,13 +25,10 @@ imgur.setClientId('4777e903cbb1acf');
     // Save the screenshot
     fs.writeFileSync('thumbnail.png', screenshotBuffer);
 
-    imgur.uploadFile('thumbnail.png')
-        .then((json) => {
-            console.log(json.data.link);
-        })
-        .catch((err) => {
-            console.error(err.message);
-        });
+    imgur.setClientID("4777e903cbb1acf");
+    imgur.upload(path.join(__dirname, 'thumbnail.png'), function (err, res) {
+        console.log(res.data.link); //log the imgur url
+    });
 
     await browser.close();
 
