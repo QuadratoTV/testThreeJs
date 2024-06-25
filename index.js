@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+require('console-png').attachTo(console);
 
 (async () => {
     const browser = await puppeteer.launch({
@@ -22,6 +23,7 @@ const fs = require('fs');
 
     // Save the screenshot
     fs.writeFileSync('thumbnail.png', screenshotBuffer);
+    console.png(require('fs').readFileSync(__dirname + '/thumbnail.png'));
 
     await browser.close();
 })();
