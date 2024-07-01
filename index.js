@@ -23,8 +23,10 @@ app.get('/screenshot', (req, res) => {
 
         await page.goto(url);
 
-        // Wait for the renderer to draw at least one frame
-        await delay(6000);
+        // Wait for the spinner to disappear
+        await page.waitForFunction(
+            "document.querySelector('div.spinner') && document.querySelector('div.spinner').style.display === 'none'"
+        );
 
         // Take a screenshot of the canvas
         const screenshotBuffer = await page.screenshot({encoding: 'binary'});
