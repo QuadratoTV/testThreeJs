@@ -4,7 +4,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-const browser = await puppeteer.launch({
+const browser = puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox']
 });
 
