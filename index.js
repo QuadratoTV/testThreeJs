@@ -19,6 +19,8 @@ app.get('/screenshot', (req, res) => {
         // Navigate to the page
         const url = req.query.url;
 
+        console.log(url);
+
         await page.goto(url);
 
         // Wait for the renderer to draw at least one frame
