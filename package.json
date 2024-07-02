@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async-mutex": "^0.5.0",
     "console-png": "^1.2.1",
     "express": "^4.19.2",
     "imgur": "^2.4.2",

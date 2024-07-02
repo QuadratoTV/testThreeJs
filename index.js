@@ -3,9 +3,12 @@ const fs = require('fs');
 const express = require('express')
 const app = express()
 const port = 3000
+const { Semaphore } = require('async-mutex'); // You need to install this package
+
+const semaphore = new Semaphore(3); // Only allow 3 concurrent requests
 
 app.get('/screenshot', (req, res) => {
-    (async () => {
+    semaphore.runExclusive(async () => {
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox']
         });
@@ -40,7 +43,7 @@ app.get('/screenshot', (req, res) => {
         res.end(screenshotBuffer);
 
         await browser.close();
-    })();
+    });
 })
 
 app.listen(port, () => {
