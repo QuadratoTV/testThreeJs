@@ -4,10 +4,11 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-let browser;
-
 app.get('/screenshot', (req, res) => {
     (async () => {
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
         const page = await browser.newPage();
         await page.setViewport({
             width: 1920,
@@ -38,17 +39,10 @@ app.get('/screenshot', (req, res) => {
 
         res.end(screenshotBuffer);
 
-        await page.close();
+        await browser.close();
     })();
-});
+})
 
-puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
-}).then(browserInstance => {
-    browser = browserInstance;
-
-    app.listen(port, () => {
-        console.log(`Example app listening on port ${port}`)
-    })
-});
-
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
